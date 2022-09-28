@@ -1,4 +1,4 @@
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 
 import {
@@ -15,6 +15,11 @@ export default function App () {
 
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle='dark-content'
+        backgroundColor='transparent'
+        translucent
+      />
       {fontsLoaded ? <Routes /> : <ActivityIndicator />}
     </ThemeProvider>
 
