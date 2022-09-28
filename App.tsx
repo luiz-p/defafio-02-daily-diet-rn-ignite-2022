@@ -1,6 +1,7 @@
-import { ActivityIndicator, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 
+import { Loading } from '@components/Loading'
 import {
   NunitoSans_400Regular,
   NunitoSans_700Bold,
@@ -20,7 +21,7 @@ export default function App () {
         backgroundColor='transparent'
         translucent
       />
-      {fontsLoaded ? <Routes /> : <ActivityIndicator />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
 
   )
