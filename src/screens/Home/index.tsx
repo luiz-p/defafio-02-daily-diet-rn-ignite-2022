@@ -1,4 +1,5 @@
 import logoImg from '@assets/logo.png'
+import { Button } from '@components/Button'
 import { Highlight } from '@components/Highlight'
 
 import * as S from './styles'
@@ -13,8 +14,11 @@ export function Home () {
 
       <S.StatsButton>
         <S.ArrowIcon />
-        <Highlight title='90,86%' subtitle='das refeições dentro da dieta' />
+        <Highlight title="90,86%" subtitle="das refeições dentro da dieta" />
       </S.StatsButton>
+
+      <S.Title>Refeições</S.Title>
+      <Button title="Nova Refeição" icon="plus" />
     </S.Container>
   )
 }
