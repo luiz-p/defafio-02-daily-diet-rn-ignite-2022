@@ -7,6 +7,7 @@ import { Button } from '@components/Button'
 import { Highlight } from '@components/Highlight'
 import { ListEmpty } from '@components/ListEmpty'
 import { MealItem } from '@components/MealItem'
+import { useNavigation } from '@react-navigation/native'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 
 import * as S from './styles'
@@ -56,6 +57,8 @@ export function Home () {
   const [mealsList, setMealsList] = useState<MealStorageDTO[]>(DATA)
   const [isHighPercent, setIsHighPercent] = useState(true)
 
+  const navigation = useNavigation()
+
   return (
     <S.Container>
       <S.Header>
@@ -63,7 +66,7 @@ export function Home () {
         <S.UserImg source={{ uri: 'https://github.com/luiz-p.png' }} />
       </S.Header>
 
-      <S.StatsButton isHighPercent={isHighPercent}>
+      <S.StatsButton isHighPercent={isHighPercent} onPress={() => navigation.navigate('statistics')}>
         <S.ArrowIcon isHighPercent={isHighPercent} />
         <Highlight title="90,86%" subtitle="das refeições dentro da dieta" />
       </S.StatsButton>
