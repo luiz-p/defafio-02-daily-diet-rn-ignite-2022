@@ -15,23 +15,23 @@ const DATA = [
   {
     title: '12.08.22',
     data: [
-      { id: '01', title: 'X-tudo', hour: '20:00', isHealthy: false },
+      { id: '01', title: 'X-tudo', time: '20:00', isHealthy: false },
       {
         id: '02',
         title: 'Whey protein com leite',
-        hour: '16:00',
+        time: '16:00',
         isHealthy: true
       },
       {
         id: '03',
         title: 'Salada cesar com frango grelhado',
-        hour: '12:30',
+        time: '12:30',
         isHealthy: true
       },
       {
         id: '04',
         title: 'Vitamina de banana com goiaba',
-        hour: '09:30',
+        time: '09:30',
         isHealthy: true
       }
     ]
@@ -39,15 +39,15 @@ const DATA = [
   {
     title: '11.08.22',
     data: [
-      { id: '05', title: 'X-tudo', hour: '20:00', isHealthy: false },
-      { id: '06', title: 'Sanduíche', hour: '16:00', isHealthy: true },
+      { id: '05', title: 'X-tudo', time: '20:00', isHealthy: false },
+      { id: '06', title: 'Sanduíche', time: '16:00', isHealthy: true },
       {
         id: '07',
         title: 'Lasanha de frango com queijo',
-        hour: '12:30',
+        time: '12:30',
         isHealthy: false
       },
-      { id: '08', title: 'Torta de chocolate', hour: '09:30', isHealthy: false }
+      { id: '08', title: 'Torta de chocolate', time: '09:30', isHealthy: false }
     ]
   }
 ]

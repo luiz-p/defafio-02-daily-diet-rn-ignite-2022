@@ -4,7 +4,7 @@ type Props = {
   item: {
     id: string;
     title: string;
-    hour: string;
+    time: string;
     isHealthy: boolean;
   };
 };
@@ -13,7 +13,7 @@ export function MealItem ({ item }: Props) {
   return (
     <S.Container>
       <S.Wrapper>
-        <S.Hour>{item.hour}</S.Hour>
+        <S.Time>{item.time}</S.Time>
         <S.Separator />
         <S.Title numberOfLines={1}>{item.title}</S.Title>
       </S.Wrapper>

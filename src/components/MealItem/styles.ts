@@ -19,7 +19,7 @@ export const Wrapper = styled.View`
   align-items: center;
 `
 
-export const Hour = styled.Text`
+export const Time = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.SM}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
