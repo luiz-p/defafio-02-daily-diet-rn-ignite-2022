@@ -1,6 +1,10 @@
-import { ArrowUpRight, Icon } from 'phosphor-react-native'
+import { ArrowUpRight } from 'phosphor-react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
+
+export type HomeStyleProps = {
+  isHighPercent: boolean;
+};
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
@@ -25,11 +29,12 @@ export const UserImg = styled.Image`
   border-radius: 20px;
 `
 
-export const StatsButton = styled.TouchableOpacity`
+export const StatsButton = styled.TouchableOpacity<HomeStyleProps>`
   padding: 20px 8px;
   margin-top: 32px;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.COLORS.GREEN_LIGHT};
+  background-color: ${({ theme, isHighPercent }) =>
+    isHighPercent ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
 `
 
 export const Title = styled.Text`
@@ -41,10 +46,12 @@ export const Title = styled.Text`
   `}
 `
 
-export const ArrowIcon = styled(ArrowUpRight).attrs(({ theme }) => ({
-  size: 24,
-  color: theme.COLORS.GREEN_DARK
-}))<Icon>`
+export const ArrowIcon = styled(ArrowUpRight).attrs<HomeStyleProps>(
+  ({ theme, isHighPercent }) => ({
+    size: 24,
+    color: isHighPercent ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK
+  })
+)<HomeStyleProps>`
   position: absolute;
   right: 0;
   margin: 8px;

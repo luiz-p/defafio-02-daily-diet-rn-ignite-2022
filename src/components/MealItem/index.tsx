@@ -5,7 +5,7 @@ type Props = {
     id: string;
     title: string;
     hour: string;
-    isHealth: boolean;
+    isHealthy: boolean;
   };
 };
 
@@ -18,7 +18,7 @@ export function MealItem ({ item }: Props) {
         <S.Title numberOfLines={1}>{item.title}</S.Title>
       </S.Wrapper>
 
-      <S.CheckBox isHealth={item.isHealth} />
+      <S.CheckBox isHealthy={item.isHealthy} />
     </S.Container>
   )
 }

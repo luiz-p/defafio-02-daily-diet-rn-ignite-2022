@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native'
 
 export type ItemStyleProps = {
-  isHealth: boolean;
+  isHealthy: boolean;
 };
 
 export const Container = styled.View`
@@ -46,6 +46,6 @@ export const CheckBox = styled.View<ItemStyleProps>`
   width: 14px;
   height: 14px;
   border-radius: 7px;
-  background-color: ${({ theme, isHealth }) =>
-    isHealth ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};
+  background-color: ${({ theme, isHealthy }) =>
+    isHealthy ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};
 `
