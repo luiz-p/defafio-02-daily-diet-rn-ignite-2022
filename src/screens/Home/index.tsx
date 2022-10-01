@@ -95,7 +95,7 @@ export function Home () {
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
-          { paddingBottom: 20 },
+          { paddingBottom: 24 },
           mealsList.length === 0 && { flex: 1 }
         ]}
       />

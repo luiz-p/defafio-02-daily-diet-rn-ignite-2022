@@ -8,7 +8,7 @@ export type HomeStyleProps = {
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  padding: 24px;
+  padding: 24px 24px 0;
   background-color: ${({ theme }) => theme.COLORS.GRAY_7};
 `
 
