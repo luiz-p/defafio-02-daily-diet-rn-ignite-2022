@@ -1,9 +1,9 @@
 export type MealStorageDTO = {
-  title: string;
+  date: Date;
   data: {
     id: string;
     title: string;
-    time: string;
+    time: Date;
     isHealthy: boolean;
   }[];
 };
