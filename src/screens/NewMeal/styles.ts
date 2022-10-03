@@ -31,3 +31,18 @@ export const TwoColumnsWrapper = styled.View`
 export const PickerWrapper = styled.View`
   width: ${(width - 48) / 2 - 10}px;
 `
+
+export const PickerButton = styled.TouchableOpacity`
+  padding: 14px;
+  border-radius: 6px;
+  border: 1px solid ${({ theme }) => theme.COLORS.GRAY_5};
+  margin: 4px 0 24px;
+`
+
+export const PickerText = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.FONT_SIZE.LG}px;
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+    color: ${theme.COLORS.GRAY_1};
+  `}
+`
