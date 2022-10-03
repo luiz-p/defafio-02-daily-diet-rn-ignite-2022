@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'phosphor-react-native'
+import { TouchableOpacityProps } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
 export type DefaultHeaderStyleProps = {
@@ -27,7 +28,11 @@ export const Title = styled.Text`
   `}
 `
 
-export const BackButton = styled.TouchableOpacity`
+export const BackButton = styled.TouchableOpacity.attrs<TouchableOpacityProps>(
+  () => ({
+    hitSlop: { top: 30, left: 30, bottom: 30, right: 30 }
+  })
+)`
   z-index: 1;
   position: absolute;
   left: 24px;
