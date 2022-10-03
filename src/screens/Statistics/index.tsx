@@ -38,8 +38,8 @@ export function Statistics () {
           />
         </S.Card>
 
-        <S.CardWrapper>
-          <S.Card cardType="HIGH_PERCENT">
+        <S.TwoColumnsWrapper>
+          <S.Card cardType="HIGH_PERCENT" isTwoColumns>
             <Highlight
               title="32"
               subtitle="refeições dentro da dieta"
@@ -47,16 +47,14 @@ export function Statistics () {
             />
           </S.Card>
 
-          <S.Separator />
-
-          <S.Card cardType="LOW_PERCENT">
+          <S.Card cardType="LOW_PERCENT" isTwoColumns>
             <Highlight
               title="77"
               subtitle="refeições dentro da dieta"
               type="SECONDARY"
             />
           </S.Card>
-        </S.CardWrapper>
+        </S.TwoColumnsWrapper>
       </S.StatisticsWrapper>
     </S.Container>
   )

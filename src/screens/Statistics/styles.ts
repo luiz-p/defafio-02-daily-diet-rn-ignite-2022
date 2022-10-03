@@ -7,6 +7,7 @@ const { width } = Dimensions.get('window')
 export type StatisticsStyleProps = {
   isHighPercent?: boolean;
   cardType?: 'HIGH_PERCENT' | 'LOW_PERCENT';
+  isTwoColumns?: boolean;
 };
 
 export const Container = styled.View`
@@ -41,7 +42,6 @@ export const ArrowIcon = styled(ArrowLeft).attrs<StatisticsStyleProps>(
 
 export const StatisticsWrapper = styled.View`
   flex: 1;
-  align-items: center;
   margin-top: -33px;
   padding: 33px 24px 0 24px;
   background-color: ${({ theme }) => theme.COLORS.GRAY_7};
@@ -54,11 +54,13 @@ export const Title = styled.Text`
     font-family: ${theme.FONT_FAMILY.BOLD};
     color: ${theme.COLORS.GRAY_1};
     margin-bottom: 23px;
+    align-self: center;
   `}
 `
 
 export const Card = styled.View<StatisticsStyleProps>`
-  width: 100%;
+  width: ${({ isTwoColumns }) =>
+    isTwoColumns ? `${(width - 48) / 2 - 6}px` : '100%'};
   padding: 16px;
   margin-bottom: 12px;
   border-radius: 8px;
@@ -70,12 +72,7 @@ export const Card = styled.View<StatisticsStyleProps>`
       : theme.COLORS.GRAY_6};
 `
 
-export const CardWrapper = styled.View`
-  width: ${(width - 48) / 2 - 6}px;
+export const TwoColumnsWrapper = styled.View`
   flex-direction: row;
-  align-self: flex-start;
-`
-
-export const Separator = styled.View`
-  width: 12px;
+  justify-content: space-between;
 `
