@@ -17,7 +17,12 @@ const DATA = [
   {
     date: new Date('2022-08-12T03:24:00'),
     data: [
-      { id: '01', title: 'X-tudo', time: new Date('2022-08-12T23:00:00'), isHealthy: false },
+      {
+        id: '01',
+        title: 'X-tudo',
+        time: new Date('2022-08-12T23:00:00'),
+        isHealthy: false
+      },
       {
         id: '02',
         title: 'Whey protein com leite',
@@ -41,8 +46,18 @@ const DATA = [
   {
     date: new Date('2022-08-11T03:24:00'),
     data: [
-      { id: '05', title: 'X-tudo', time: new Date('2022-08-12T23:00:00'), isHealthy: false },
-      { id: '06', title: 'Sanduíche', time: new Date('2022-08-12T19:00:00'), isHealthy: true },
+      {
+        id: '05',
+        title: 'X-tudo',
+        time: new Date('2022-08-12T23:00:00'),
+        isHealthy: false
+      },
+      {
+        id: '06',
+        title: 'Sanduíche',
+        time: new Date('2022-08-12T19:00:00'),
+        isHealthy: true
+      },
       {
         id: '07',
         title: 'Lasanha de frango com queijo',
@@ -81,7 +96,11 @@ export function Home () {
       </S.StatsButton>
 
       <S.Title>Refeições</S.Title>
-      <Button title="Nova Refeição" icon="plus" />
+      <Button
+        title="Nova Refeição"
+        icon="plus"
+        onPress={() => navigation.navigate('new')}
+      />
 
       <SectionList
         sections={mealsList}
