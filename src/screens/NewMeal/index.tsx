@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
 
+import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
 import { Input } from '@components/Input'
 import RNDateTimePicker, {
@@ -96,6 +97,10 @@ export function NewMeal () {
             <S.HealthyButtonText>Não</S.HealthyButtonText>
           </S.HealthyButton>
         </S.TwoColumnsWrapper>
+
+        <S.Footer>
+          <Button title="Cadastrar refeição" onPress={() => {}} />
+        </S.Footer>
       </S.Form>
     </S.Container>
   )

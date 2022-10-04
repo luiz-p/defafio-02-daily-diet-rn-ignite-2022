@@ -90,3 +90,8 @@ export const HealthyButtonText = styled.Text`
     color: ${theme.COLORS.GRAY_1};
   `}
 `
+
+export const Footer = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+`
