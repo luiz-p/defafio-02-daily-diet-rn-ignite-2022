@@ -4,18 +4,15 @@ import { TextInputProps } from 'react-native'
 
 import * as S from './styles'
 
-type Props = S.NewMealStyleProps &
-  TextInputProps & {
-    placeholder?: string;
-  };
+type Props = S.NewMealStyleProps & TextInputProps;
 
-export function Input ({ placeholder, isTextArea }: Props) {
+export function Input ({ isTextArea, ...rest }: Props) {
   return (
     <S.Input
-      placeholder={placeholder}
+      {...rest}
       isTextArea={isTextArea}
       style={{ textAlignVertical: 'top' }}
-      multiline={true}
+      multiline={isTextArea && true}
     />
   )
 }
