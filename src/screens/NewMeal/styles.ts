@@ -3,6 +3,11 @@ import styled, { css } from 'styled-components/native'
 
 const { width } = Dimensions.get('window')
 
+export type NewMealStyleProps = {
+  isHealthy?: boolean;
+  circle?: 'PRIMARY' | 'SECONDARY';
+};
+
 export const Container = styled.View`
   flex: 1;
 `
@@ -43,6 +48,45 @@ export const PickerText = styled.Text`
   ${({ theme }) => css`
     font-size: ${theme.FONT_SIZE.LG}px;
     font-family: ${theme.FONT_FAMILY.REGULAR};
+    color: ${theme.COLORS.GRAY_1};
+  `}
+`
+
+export const HealthyButton = styled.TouchableOpacity<NewMealStyleProps>`
+  width: ${(width - 48) / 2 - 10}px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  margin-top: 8px;
+  border-radius: 6px;
+  background-color: ${({ theme, isHealthy }) =>
+    isHealthy === undefined
+      ? theme.COLORS.GRAY_6
+      : isHealthy
+      ? theme.COLORS.GREEN_LIGHT
+      : theme.COLORS.RED_LIGHT};
+  border: ${({ theme, isHealthy }) =>
+    isHealthy === undefined
+      ? 'none'
+      : isHealthy
+      ? `1px solid ${theme.COLORS.GREEN_DARK}`
+      : `1px solid ${theme.COLORS.RED_DARK}`};
+`
+
+export const HealthyButtonCircle = styled.View<NewMealStyleProps>`
+  height: 8px;
+  width: 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+  background-color: ${({ theme, circle }) =>
+    circle === 'PRIMARY' ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
+`
+
+export const HealthyButtonText = styled.Text`
+  ${({ theme }) => css`
+    font-size: ${theme.FONT_SIZE.MD}px;
+    font-family: ${theme.FONT_FAMILY.BOLD};
     color: ${theme.COLORS.GRAY_1};
   `}
 `

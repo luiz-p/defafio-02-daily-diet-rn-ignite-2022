@@ -15,6 +15,7 @@ export function NewMeal () {
   const [time, setTime] = useState<Date | null>()
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
+  const [isHealthy, setIsHealthy] = useState<boolean | undefined>()
 
   function handleDatePicker (event: DateTimePickerEvent, date?: Date) {
     if (date && event.type === 'set') {
@@ -77,6 +78,24 @@ export function NewMeal () {
         )}
 
         <S.Label>Está dentro da dieta?</S.Label>
+
+        <S.TwoColumnsWrapper>
+          <S.HealthyButton
+            onPress={() => setIsHealthy(true)}
+            isHealthy={isHealthy || undefined}
+          >
+            <S.HealthyButtonCircle circle="PRIMARY" />
+            <S.HealthyButtonText>Sim</S.HealthyButtonText>
+          </S.HealthyButton>
+
+          <S.HealthyButton
+            onPress={() => setIsHealthy(false)}
+            isHealthy={!isHealthy ? isHealthy : undefined}
+          >
+            <S.HealthyButtonCircle circle="SECONDARY" />
+            <S.HealthyButtonText>Não</S.HealthyButtonText>
+          </S.HealthyButton>
+        </S.TwoColumnsWrapper>
       </S.Form>
     </S.Container>
   )
