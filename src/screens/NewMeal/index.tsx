@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
+import uuid from 'react-native-uuid'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
@@ -12,11 +13,15 @@ import RNDateTimePicker, {
 import * as S from './styles'
 
 export function NewMeal () {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [date, setDate] = useState<Date | null>()
   const [time, setTime] = useState<Date | null>()
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [isHealthy, setIsHealthy] = useState<boolean | undefined>()
+
+  const isValidForm = title && isHealthy !== undefined && date && time !== null
 
   function handleDatePicker (event: DateTimePickerEvent, date?: Date) {
     if (date && event.type === 'set') {
@@ -32,16 +37,30 @@ export function NewMeal () {
     setShowTimePicker(false)
   }
 
+  function handleForm () {
+    const meal = {
+      date,
+      data: {
+        id: uuid.v4(),
+        title,
+        description,
+        time,
+        isHealthy
+      }
+    }
+    console.log(meal)
+  }
+
   return (
     <S.Container>
       <DefaultHeader title="Nova Refeição" />
 
       <S.Form>
         <S.Label>Nome</S.Label>
-        <Input />
+        <Input value={title} onChangeText={setTitle} />
 
         <S.Label>Descrição</S.Label>
-        <Input isTextArea />
+        <Input isTextArea value={description} onChangeText={setDescription} />
 
         <S.TwoColumnsWrapper>
           <S.PickerWrapper>
@@ -99,7 +118,9 @@ export function NewMeal () {
         </S.TwoColumnsWrapper>
 
         <S.Footer>
-          <Button title="Cadastrar refeição" onPress={() => {}} />
+          {isValidForm && (
+            <Button title="Cadastrar refeição" onPress={handleForm} />
+          )}
         </S.Footer>
       </S.Form>
     </S.Container>
