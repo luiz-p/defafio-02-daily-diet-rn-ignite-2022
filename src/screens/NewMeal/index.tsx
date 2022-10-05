@@ -5,6 +5,7 @@ import uuid from 'react-native-uuid'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
+import { FeedbackModal } from '@components/FeedbackModal'
 import { Input } from '@components/Input'
 import RNDateTimePicker, {
   DateTimePickerEvent
@@ -20,6 +21,7 @@ export function NewMeal () {
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [isHealthy, setIsHealthy] = useState<boolean | undefined>()
+  const [modalVisible, setModalVisible] = useState(false)
 
   const isValidForm = title && isHealthy !== undefined && date && time !== null
 
@@ -48,7 +50,7 @@ export function NewMeal () {
         isHealthy
       }
     }
-    console.log(meal)
+    setModalVisible(true)
   }
 
   return (
@@ -123,6 +125,11 @@ export function NewMeal () {
           )}
         </S.Footer>
       </S.Form>
+      <FeedbackModal
+        visible={modalVisible}
+        isHealthy={!!isHealthy}
+        statusBarTranslucent
+      />
     </S.Container>
   )
 }
