@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
 import { LogBox } from 'react-native'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
+import { Dialog } from '@components/Dialog'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import * as S from './styles'
@@ -28,6 +29,7 @@ export function Meal () {
   const route = useRoute()
   const { item } = route.params as RouteParams
   const navigation = useNavigation()
+  const [dialogVisible, setDialogVisible] = useState(false)
 
   return (
     <S.Container>
@@ -63,9 +65,18 @@ export function Meal () {
             title="Excluir refeição"
             icon="trash"
             color="SECONDARY"
-            onPress={() => console.log('delete')}
+            onPress={() => setDialogVisible(true)}
           />
         </S.Footer>
+
+        <Dialog
+          statusBarTranslucent
+          visible={dialogVisible}
+          title="Deseja realmente excluir o registro da refeição?"
+          confirmText="Sim, excluir"
+          onConfirm={() => console.log('confirm')}
+          onCancel={() => setDialogVisible(false)}
+        />
       </S.Content>
     </S.Container>
   )
