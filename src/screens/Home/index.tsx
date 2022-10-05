@@ -21,6 +21,8 @@ const DATA = [
         id: '01',
         title: 'X-tudo',
         time: new Date('2022-08-12T23:00:00'),
+        description:
+          'Ingredientes · 1 hambúrguer · 50 g de bacon picados · 1 ovo · 2 fatias de presunto · 2 fatias de mussarela (cheddar) · 1 folha de alface · 1 rodela de tomate ',
         isHealthy: false
       },
       {
@@ -105,7 +107,9 @@ export function Home () {
       <SectionList
         sections={mealsList}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <MealItem item={item} />}
+        renderItem={({ item }) => (
+          <MealItem item={item} onPress={() => console.log(item)} />
+        )}
         renderSectionHeader={({ section: { date } }) => (
           <S.SectionHeader>{format(date, 'dd.MM.yy')}</S.SectionHeader>
         )}

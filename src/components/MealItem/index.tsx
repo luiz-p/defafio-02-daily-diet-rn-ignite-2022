@@ -1,8 +1,9 @@
 import { format } from 'date-fns'
+import { TouchableOpacityProps } from 'react-native'
 
 import * as S from './styles'
 
-type Props = {
+type Props = TouchableOpacityProps & {
   item: {
     id: string;
     title: string;
@@ -11,9 +12,9 @@ type Props = {
   };
 };
 
-export function MealItem ({ item }: Props) {
+export function MealItem ({ item, ...rest }: Props) {
   return (
-    <S.Container>
+    <S.Container {...rest}>
       <S.Wrapper>
         <S.Time>{format(item.time, 'HH:mm')}</S.Time>
         <S.Separator />
