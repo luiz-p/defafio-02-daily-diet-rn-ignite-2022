@@ -15,8 +15,8 @@ export const Container = styled.TouchableOpacity<ButtonStyleProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px;
-  width: ${({ fullWidth }) => (fullWidth ? '100%' : '191px')};
+  padding: 16px 24px;
+  min-width: ${({ fullWidth }) => (fullWidth ? '100%' : '191px')};
   background-color: ${({ theme, color }) =>
     color === 'PRIMARY' ? theme.COLORS.GRAY_2 : theme.COLORS.GRAY_7};
   border-width: ${({ color }) => (color === 'PRIMARY' ? 0 : 1)}px;
