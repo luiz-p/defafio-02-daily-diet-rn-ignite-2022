@@ -5,7 +5,7 @@ import { LogBox } from 'react-native'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import * as S from './styles'
 
@@ -27,6 +27,7 @@ type RouteParams = {
 export function Meal () {
   const route = useRoute()
   const { item } = route.params as RouteParams
+  const navigation = useNavigation()
 
   return (
     <S.Container>
@@ -56,7 +57,7 @@ export function Meal () {
             style={{ marginBottom: 9 }}
             title="Editar refeição"
             icon="edit"
-            onPress={() => console.log('navigate to edit screen')}
+            onPress={() => navigation.navigate('edit', { item })}
           />
           <Button
             title="Excluir refeição"

@@ -13,6 +13,15 @@ export declare global {
           isHealthy: boolean;
         };
       };
+      edit: {
+        item: {
+          id: string;
+          title: string;
+          description?: string | undefined;
+          time: Date;
+          isHealthy: boolean;
+        };
+      };
     }
   }
 }
