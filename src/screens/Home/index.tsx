@@ -108,7 +108,7 @@ export function Home () {
         sections={mealsList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <MealItem item={item} onPress={() => console.log(item)} />
+          <MealItem item={item} onPress={() => navigation.navigate('meal', { item })} />
         )}
         renderSectionHeader={({ section: { date } }) => (
           <S.SectionHeader>{format(date, 'dd.MM.yy')}</S.SectionHeader>
