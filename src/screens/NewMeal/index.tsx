@@ -49,6 +49,7 @@ export function NewMeal () {
             id: uuid.v4(),
             title,
             description,
+            day: date,
             time,
             isHealthy
           }

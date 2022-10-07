@@ -39,7 +39,7 @@ export function Meal () {
 
         <S.SubTitle>Data e Hora</S.SubTitle>
         <S.Description>
-          {format(new Date(item.time), 'dd/MM/yy')} às{' '}
+          {format(new Date(item.day), 'dd/MM/yy')} às{' '}
           {format(new Date(item.time), 'HH:mm')}
         </S.Description>
 

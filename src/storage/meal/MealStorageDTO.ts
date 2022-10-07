@@ -2,6 +2,7 @@ export type MealItemTypes = {
   id: string | number[];
   title: string;
   description?: string;
+  day: Date;
   time: Date;
   isHealthy: boolean;
 };
