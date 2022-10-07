@@ -1,4 +1,6 @@
-import { useState } from 'react'
+/** @format */
+
+import { useCallback, useState } from 'react'
 
 import { format } from 'date-fns/esm'
 import { SectionList } from 'react-native'
@@ -8,79 +10,34 @@ import { Button } from '@components/Button'
 import { Highlight } from '@components/Highlight'
 import { ListEmpty } from '@components/ListEmpty'
 import { MealItem } from '@components/MealItem'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { getMeals } from '@storage/meal/getMeals'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 
 import * as S from './styles'
 
-const DATA = [
-  {
-    date: new Date('2022-08-12T03:24:00'),
-    data: [
-      {
-        id: '01',
-        title: 'X-tudo',
-        time: new Date('2022-08-12T23:00:00'),
-        description:
-          'Ingredientes · 1 hambúrguer · 50 g de bacon picados · 1 ovo · 2 fatias de presunto · 2 fatias de mussarela (cheddar) · 1 folha de alface · 1 rodela de tomate ',
-        isHealthy: false
-      },
-      {
-        id: '02',
-        title: 'Whey protein com leite',
-        time: new Date('2022-08-12T19:00:00'),
-        isHealthy: true
-      },
-      {
-        id: '03',
-        title: 'Salada cesar com frango grelhado',
-        time: new Date('2022-08-12T15:30:00'),
-        isHealthy: true
-      },
-      {
-        id: '04',
-        title: 'Vitamina de banana com goiaba',
-        time: new Date('2022-08-12T12:30:00'),
-        isHealthy: true
-      }
-    ]
-  },
-  {
-    date: new Date('2022-08-11T03:24:00'),
-    data: [
-      {
-        id: '05',
-        title: 'X-tudo',
-        time: new Date('2022-08-12T23:00:00'),
-        isHealthy: false
-      },
-      {
-        id: '06',
-        title: 'Sanduíche',
-        time: new Date('2022-08-12T19:00:00'),
-        isHealthy: true
-      },
-      {
-        id: '07',
-        title: 'Lasanha de frango com queijo',
-        time: new Date('2022-08-12T15:30:00'),
-        isHealthy: false
-      },
-      {
-        id: '08',
-        title: 'Torta de chocolate',
-        time: new Date('2022-08-12T12:30:00'),
-        isHealthy: false
-      }
-    ]
-  }
-]
-
 export function Home () {
-  const [mealsList, setMealsList] = useState<MealStorageDTO[]>(DATA)
+  const [mealsList, setMealsList] = useState<MealStorageDTO[]>([])
   const [isHighPercent, setIsHighPercent] = useState(true)
 
   const navigation = useNavigation()
+
+  async function fetchMeals () {
+    try {
+      const data = await getMeals()
+      if (data) {
+        setMealsList(data)
+      }
+    } catch (error) {
+      //
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals()
+    }, [])
+  )
 
   return (
     <S.Container>
@@ -106,12 +63,17 @@ export function Home () {
 
       <SectionList
         sections={mealsList}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
-          <MealItem item={item} onPress={() => navigation.navigate('meal', { item })} />
+          <MealItem
+            item={item}
+            onPress={() => navigation.navigate('meal', { item })}
+          />
         )}
         renderSectionHeader={({ section: { date } }) => (
-          <S.SectionHeader>{format(date, 'dd.MM.yy')}</S.SectionHeader>
+          <S.SectionHeader>
+            {format(new Date(date), 'dd.MM.yy')}
+          </S.SectionHeader>
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Registre sua primeira refeição." />
