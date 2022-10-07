@@ -9,17 +9,12 @@ import RNDateTimePicker, {
   DateTimePickerEvent
 } from '@react-native-community/datetimepicker'
 import { useRoute } from '@react-navigation/native'
+import { MealItemTypes } from '@storage/meal/MealStorageDTO'
 
 import * as S from './styles'
 
 type RouteParams = {
-  item: {
-    id: string;
-    title: string;
-    description?: string | undefined;
-    time: Date;
-    isHealthy: boolean;
-  };
+  item: MealItemTypes
 };
 
 export function Edit () {
@@ -28,8 +23,8 @@ export function Edit () {
 
   const [title, setTitle] = useState(item.title)
   const [description, setDescription] = useState(item.description)
-  const [date, setDate] = useState<Date>(item.time)
-  const [time, setTime] = useState<Date>(item.time)
+  const [date, setDate] = useState<Date>(new Date(item.time))
+  const [time, setTime] = useState<Date>(new Date(item.time))
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [isHealthy, setIsHealthy] = useState<boolean | undefined>(
@@ -82,7 +77,7 @@ export function Edit () {
             <S.Label>Data</S.Label>
             <S.PickerButton onPress={() => setShowDatePicker(true)}>
               <S.PickerText>
-                {date ? format(date, 'dd/MM/yy') : ''}
+                {date ? format(new Date(date), 'dd/MM/yy') : ''}
               </S.PickerText>
             </S.PickerButton>
           </S.PickerWrapper>
@@ -90,7 +85,7 @@ export function Edit () {
           <S.PickerWrapper>
             <S.Label>Hora</S.Label>
             <S.PickerButton onPress={() => setShowTimePicker(true)}>
-              <S.PickerText>{time ? format(time, 'HH:mm') : ''}</S.PickerText>
+              <S.PickerText>{time ? format(new Date(time), 'HH:mm') : ''}</S.PickerText>
             </S.PickerButton>
           </S.PickerWrapper>
         </S.TwoColumnsWrapper>

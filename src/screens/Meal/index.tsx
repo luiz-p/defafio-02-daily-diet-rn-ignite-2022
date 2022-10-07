@@ -7,6 +7,7 @@ import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
 import { Dialog } from '@components/Dialog'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { MealItemTypes } from '@storage/meal/MealStorageDTO'
 
 import * as S from './styles'
 
@@ -16,13 +17,7 @@ LogBox.ignoreLogs([
 ])
 
 type RouteParams = {
-  item: {
-    id: string;
-    title: string;
-    description?: string | undefined;
-    time: Date;
-    isHealthy: boolean;
-  };
+  item: MealItemTypes;
 };
 
 export function Meal () {
@@ -44,7 +39,8 @@ export function Meal () {
 
         <S.SubTitle>Data e Hora</S.SubTitle>
         <S.Description>
-          {format(item.time, 'dd/MM/yy')} às {format(item.time, 'HH:mm')}
+          {format(new Date(item.time), 'dd/MM/yy')} às{' '}
+          {format(new Date(item.time), 'HH:mm')}
         </S.Description>
 
         <S.StatsCard>
