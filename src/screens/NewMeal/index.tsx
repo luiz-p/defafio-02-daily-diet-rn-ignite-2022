@@ -10,6 +10,7 @@ import { Input } from '@components/Input'
 import RNDateTimePicker, {
   DateTimePickerEvent
 } from '@react-native-community/datetimepicker'
+import { createMeal } from '@storage/meal/createMeal'
 
 import * as S from './styles'
 
@@ -23,7 +24,7 @@ export function NewMeal () {
   const [isHealthy, setIsHealthy] = useState<boolean | undefined>()
   const [modalVisible, setModalVisible] = useState(false)
 
-  const isValidForm = title && isHealthy !== undefined && date && time !== null
+  const isValidForm = title && isHealthy !== undefined && date && time
 
   function handleDatePicker (event: DateTimePickerEvent, date?: Date) {
     if (date && event.type === 'set') {
@@ -40,17 +41,22 @@ export function NewMeal () {
   }
 
   function handleForm () {
-    const meal = {
-      date,
-      data: {
-        id: uuid.v4(),
-        title,
-        description,
-        time,
-        isHealthy
+    if (isValidForm) {
+      const meal = {
+        date,
+        data: [
+          {
+            id: uuid.v4(),
+            title,
+            description,
+            time,
+            isHealthy
+          }
+        ]
       }
+      createMeal(meal)
+      setModalVisible(true)
     }
-    setModalVisible(true)
   }
 
   return (
@@ -69,7 +75,7 @@ export function NewMeal () {
             <S.Label>Data</S.Label>
             <S.PickerButton onPress={() => setShowDatePicker(true)}>
               <S.PickerText>
-                {date ? format(date, 'dd/MM/yy') : ''}
+                {date ? format(new Date(date), 'dd/MM/yy') : ''}
               </S.PickerText>
             </S.PickerButton>
           </S.PickerWrapper>
@@ -77,7 +83,9 @@ export function NewMeal () {
           <S.PickerWrapper>
             <S.Label>Hora</S.Label>
             <S.PickerButton onPress={() => setShowTimePicker(true)}>
-              <S.PickerText>{time ? format(time, 'HH:mm') : ''}</S.PickerText>
+              <S.PickerText>
+                {time ? format(new Date(time), 'HH:mm') : ''}
+              </S.PickerText>
             </S.PickerButton>
           </S.PickerWrapper>
         </S.TwoColumnsWrapper>
