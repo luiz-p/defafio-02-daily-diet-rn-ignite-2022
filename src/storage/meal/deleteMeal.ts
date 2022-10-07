@@ -4,6 +4,7 @@ import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 import { MEALS_COLLECTION } from '@storage/storageConfig'
 
 import { findByDate } from './findByDate'
+import { findIndex } from './findIndex'
 
 export async function deleteMeal (mealToDelete: MealStorageDTO) {
   try {
@@ -14,7 +15,12 @@ export async function deleteMeal (mealToDelete: MealStorageDTO) {
       const meal = date.data.findIndex(
         (meal) => meal.id === mealToDelete.data[0].id
       )
-      date.data.splice(meal, 1)
+      if (date.data.length === 1) {
+        const index = await findIndex(storedMeals, mealToDelete)
+        storedMeals.splice(index, 1)
+      } else {
+        date.data.splice(meal, 1)
+      }
 
       await AsyncStorage.setItem(MEALS_COLLECTION, JSON.stringify(storedMeals))
     }
