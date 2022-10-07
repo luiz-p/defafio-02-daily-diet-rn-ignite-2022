@@ -8,22 +8,24 @@ import { Input } from '@components/Input'
 import RNDateTimePicker, {
   DateTimePickerEvent
 } from '@react-native-community/datetimepicker'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { MealItemTypes } from '@storage/meal/MealStorageDTO'
+import { updateMeal } from '@storage/meal/updateMeal'
 
 import * as S from './styles'
 
 type RouteParams = {
-  item: MealItemTypes
+  item: MealItemTypes;
 };
 
 export function Edit () {
   const route = useRoute()
   const { item } = route.params as RouteParams
+  const navigation = useNavigation()
 
   const [title, setTitle] = useState(item.title)
   const [description, setDescription] = useState(item.description)
-  const [date, setDate] = useState<Date>(new Date(item.time))
+  const [date, setDate] = useState<Date>(new Date(item.day))
   const [time, setTime] = useState<Date>(new Date(item.time))
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
@@ -47,18 +49,24 @@ export function Edit () {
     setShowTimePicker(false)
   }
 
-  function handleForm () {
-    const meal = {
-      date,
-      data: {
-        id: item.id,
-        title,
-        description,
-        time,
-        isHealthy
+  async function handleForm () {
+    if (isValidForm) {
+      const meal = {
+        date,
+        data: [
+          {
+            id: item.id,
+            title,
+            description,
+            day: date,
+            time,
+            isHealthy
+          }
+        ]
       }
+      await updateMeal(meal)
+      navigation.navigate('home')
     }
-    console.log(meal)
   }
 
   return (
@@ -85,7 +93,9 @@ export function Edit () {
           <S.PickerWrapper>
             <S.Label>Hora</S.Label>
             <S.PickerButton onPress={() => setShowTimePicker(true)}>
-              <S.PickerText>{time ? format(new Date(time), 'HH:mm') : ''}</S.PickerText>
+              <S.PickerText>
+                {time ? format(new Date(time), 'HH:mm') : ''}
+              </S.PickerText>
             </S.PickerButton>
           </S.PickerWrapper>
         </S.TwoColumnsWrapper>
