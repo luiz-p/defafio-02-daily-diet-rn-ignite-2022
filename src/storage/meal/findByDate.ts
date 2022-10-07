@@ -5,7 +5,9 @@ export async function findByDate (
   mealToFind: MealStorageDTO
 ) {
   const index = storedMeals.findIndex(
-    (day) => new Date(day.date).toDateString() === mealToFind.date.toDateString()
+    (day) =>
+      new Date(day.date).toDateString() ===
+      new Date(mealToFind.date).toDateString()
   )
 
   return storedMeals[index]
