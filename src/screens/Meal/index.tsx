@@ -7,6 +7,7 @@ import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
 import { Dialog } from '@components/Dialog'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { deleteMeal } from '@storage/meal/deleteMeal'
 import { MealItemTypes } from '@storage/meal/MealStorageDTO'
 
 import * as S from './styles'
@@ -25,6 +26,16 @@ export function Meal () {
   const { item } = route.params as RouteParams
   const navigation = useNavigation()
   const [dialogVisible, setDialogVisible] = useState(false)
+
+  async function handleDeleteMeal (item: MealItemTypes) {
+    const mealToDelete = {
+      date: item.day,
+      data: [item]
+    }
+
+    await deleteMeal(mealToDelete)
+    navigation.navigate('home')
+  }
 
   return (
     <S.Container>
@@ -70,7 +81,7 @@ export function Meal () {
           visible={dialogVisible}
           title="Deseja realmente excluir o registro da refeição?"
           confirmText="Sim, excluir"
-          onConfirm={() => console.log('confirm')}
+          onConfirm={() => handleDeleteMeal(item)}
           onCancel={() => setDialogVisible(false)}
         />
       </S.Content>

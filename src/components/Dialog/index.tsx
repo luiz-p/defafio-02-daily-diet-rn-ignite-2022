@@ -32,7 +32,7 @@ export function Dialog ({
             </S.ButtonWrapper>
 
             <S.ButtonWrapper>
-              <Button title={confirmText} />
+              <Button title={confirmText} onPress={onConfirm} />
             </S.ButtonWrapper>
           </S.TwoColumnsWrapper>
         </S.Card>
