@@ -3,19 +3,18 @@ import { getMeals } from '@storage/meal/getMeals'
 import { MealStorageDTO } from '@storage/meal/MealStorageDTO'
 import { MEALS_COLLECTION } from '@storage/storageConfig'
 
+import { findByDate } from './findByDate'
+
 export async function createMeal (newMeal: MealStorageDTO) {
   try {
     const storedMeals = await getMeals()
 
     if (storedMeals) {
-      const index = storedMeals.findIndex(
-        (day) =>
-          new Date(day.date).toDateString() === newMeal.date.toDateString()
-      )
+      const day = await findByDate(storedMeals, newMeal)
 
-      if (index !== -1) {
-        storedMeals[index].data.push(newMeal.data[0])
-        storedMeals[index].data.sort(
+      if (day) {
+        day.data.push(newMeal.data[0])
+        day.data.sort(
           (a, b) => new Date(a.time).valueOf() - new Date(b.time).valueOf()
         )
       } else {
