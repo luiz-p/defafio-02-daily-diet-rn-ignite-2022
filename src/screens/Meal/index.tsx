@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
-import { LogBox } from 'react-native'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
@@ -11,11 +10,6 @@ import { deleteMeal } from '@storage/meal/deleteMeal'
 import { MealItemTypes } from '@storage/meal/MealStorageDTO'
 
 import * as S from './styles'
-
-// TODO: refactor with context api
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state'
-])
 
 type RouteParams = {
   item: MealItemTypes;
