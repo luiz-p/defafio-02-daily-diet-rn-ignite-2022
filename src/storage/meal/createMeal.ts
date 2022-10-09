@@ -15,12 +15,12 @@ export async function createMeal (newMeal: MealStorageDTO) {
       if (day) {
         day.data.push(newMeal.data[0])
         day.data.sort(
-          (a, b) => new Date(a.time).valueOf() - new Date(b.time).valueOf()
+          (a, b) => new Date(b.time).valueOf() - new Date(a.time).valueOf()
         )
       } else {
         storedMeals.push(newMeal)
         storedMeals.sort(
-          (a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf()
+          (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
         )
       }
 
