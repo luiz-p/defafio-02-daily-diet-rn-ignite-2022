@@ -33,7 +33,5 @@ export async function createMeal (newMeal: MealStorageDTO) {
     }
   } catch (error) {
     console.log(error)
-  } finally {
-    console.log('finally')
   }
 }

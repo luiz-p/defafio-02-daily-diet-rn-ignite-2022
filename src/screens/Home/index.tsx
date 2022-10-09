@@ -10,6 +10,7 @@ import logoImg from '@assets/logo.png'
 import { Button } from '@components/Button'
 import { Highlight } from '@components/Highlight'
 import { ListEmpty } from '@components/ListEmpty'
+import { Loading } from '@components/Loading'
 import { MealItem } from '@components/MealItem'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { getMeals } from '@storage/meal/getMeals'
@@ -19,7 +20,7 @@ import * as S from './styles'
 
 export function Home () {
   const [mealsList, setMealsList] = useState<MealStorageDTO[]>([])
-  const [isHighPercent, setIsHighPercent] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [stats, setStats] = useState<StatsRouteParams>({
     percentage: 0,
     betterSequence: 0,
@@ -64,6 +65,7 @@ export function Home () {
 
   async function fetchMeals () {
     try {
+      setIsLoading(true)
       const data = await getMeals()
       if (data) {
         setMealsList(data)
@@ -71,6 +73,8 @@ export function Home () {
       }
     } catch (error) {
       //
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -111,29 +115,35 @@ export function Home () {
         onPress={() => navigation.navigate('new')}
       />
 
-      <SectionList
-        sections={mealsList}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <MealItem
-            item={item}
-            onPress={() => navigation.navigate('meal', { item })}
-          />
-        )}
-        renderSectionHeader={({ section: { date } }) => (
-          <S.SectionHeader>
-            {format(new Date(date), 'dd.MM.yy')}
-          </S.SectionHeader>
-        )}
-        ListEmptyComponent={() => (
-          <ListEmpty message="Registre sua primeira refeição." />
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 24 },
-          mealsList.length === 0 && { flex: 1 }
-        ]}
-      />
+      {isLoading
+        ? (
+        <Loading />
+          )
+        : (
+        <SectionList
+          sections={mealsList}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => (
+            <MealItem
+              item={item}
+              onPress={() => navigation.navigate('meal', { item })}
+            />
+          )}
+          renderSectionHeader={({ section: { date } }) => (
+            <S.SectionHeader>
+              {format(new Date(date), 'dd.MM.yy')}
+            </S.SectionHeader>
+          )}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Registre sua primeira refeição." />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 24 },
+            mealsList.length === 0 && { flex: 1 }
+          ]}
+        />
+          )}
     </S.Container>
   )
 }

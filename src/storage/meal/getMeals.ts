@@ -11,7 +11,5 @@ export async function getMeals () {
     return meals
   } catch (error) {
     console.log(error)
-  } finally {
-    console.log('finally')
   }
 }

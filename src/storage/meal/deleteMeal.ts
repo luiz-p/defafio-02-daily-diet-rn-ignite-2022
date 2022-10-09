@@ -26,7 +26,5 @@ export async function deleteMeal (mealToDelete: MealStorageDTO) {
     }
   } catch (error) {
     console.log(error)
-  } finally {
-    console.log('finally')
   }
 }

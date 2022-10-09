@@ -19,7 +19,5 @@ export async function updateMeal (mealToUpdate: MealStorageDTO) {
     }
   } catch (error) {
     console.log(error)
-  } finally {
-    console.log('finally')
   }
 }
