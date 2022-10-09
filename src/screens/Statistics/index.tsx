@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
 
+import { StatsRouteParams } from 'src/@types/navigation'
+
 import { Highlight } from '@components/Highlight'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import * as S from './styles'
 
 export function Statistics () {
   const navigation = useNavigation()
+  const route = useRoute()
+  const stats = route.params as StatsRouteParams
 
   const [isHighPercent, setIsHighPercent] = useState(true)
 
   return (
     <S.Container>
-      <S.Header isHighPercent={isHighPercent}>
+      <S.Header isHighPercent={stats.percentage >= 50}>
         <S.BackButton onPress={() => navigation.navigate('home')}>
           <S.ArrowIcon isHighPercent={isHighPercent} />
         </S.BackButton>
-        <Highlight title="90,86%" subtitle="das refeições dentro da dieta" />
+        <Highlight title={`${(Math.round(stats.percentage * 100) / 100).toFixed(2)}%`} subtitle="das refeições dentro da dieta" />
       </S.Header>
 
       <S.StatisticsWrapper>
@@ -24,7 +28,7 @@ export function Statistics () {
 
         <S.Card>
           <Highlight
-            title="4"
+            title={`${stats.betterSequence}`}
             subtitle="melhor sequência de pratos dentro da dieta"
             type="SECONDARY"
           />
@@ -32,7 +36,7 @@ export function Statistics () {
 
         <S.Card>
           <Highlight
-            title="109"
+            title={`${stats.allMealsCount}`}
             subtitle="refeições registradas"
             type="SECONDARY"
           />
@@ -41,7 +45,7 @@ export function Statistics () {
         <S.TwoColumnsWrapper>
           <S.Card cardType="HIGH_PERCENT" isTwoColumns>
             <Highlight
-              title="32"
+              title={`${stats.healthyMeals}`}
               subtitle="refeições dentro da dieta"
               type="SECONDARY"
             />
@@ -49,7 +53,7 @@ export function Statistics () {
 
           <S.Card cardType="LOW_PERCENT" isTwoColumns>
             <Highlight
-              title="77"
+              title={`${stats.notHealthyMeals}`}
               subtitle="refeições dentro da dieta"
               type="SECONDARY"
             />

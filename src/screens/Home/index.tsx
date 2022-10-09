@@ -88,7 +88,7 @@ export function Home () {
 
       <S.StatsButton
         isHighPercent={stats.percentage >= 50}
-        onPress={() => navigation.navigate('statistics')}
+        onPress={() => navigation.navigate('statistics', stats)}
       >
         <S.ArrowIcon isHighPercent={isHighPercent} />
         <Highlight
