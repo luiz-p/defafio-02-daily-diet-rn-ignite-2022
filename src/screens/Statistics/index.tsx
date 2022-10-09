@@ -16,11 +16,22 @@ export function Statistics () {
 
   return (
     <S.Container>
-      <S.Header isHighPercent={stats.percentage >= 50}>
+      <S.Header
+        isHighPercent={stats.percentage >= 50 || isNaN(stats.percentage)}
+      >
         <S.BackButton onPress={() => navigation.navigate('home')}>
-          <S.ArrowIcon isHighPercent={isHighPercent} />
+          <S.ArrowIcon
+            isHighPercent={stats.percentage >= 50 || isNaN(stats.percentage)}
+          />
         </S.BackButton>
-        <Highlight title={`${(Math.round(stats.percentage * 100) / 100).toFixed(2)}%`} subtitle="das refeições dentro da dieta" />
+        <Highlight
+          title={
+            stats.percentage
+              ? `${(Math.round(stats.percentage * 100) / 100).toFixed(2)}%`
+              : '-'
+          }
+          subtitle="das refeições dentro da dieta"
+        />
       </S.Header>
 
       <S.StatisticsWrapper>

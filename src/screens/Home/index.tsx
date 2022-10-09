@@ -38,6 +38,7 @@ export function Home () {
     let notHealthyMeals = 0
     let sequence = 0
     let betterSequence = 0
+
     data
       .map((day) => day.data)
       .forEach((meals) => meals.forEach((meal) => allMeals.push(meal)))
@@ -87,12 +88,18 @@ export function Home () {
       </S.Header>
 
       <S.StatsButton
-        isHighPercent={stats.percentage >= 50}
+        isHighPercent={stats.percentage >= 50 || isNaN(stats.percentage)}
         onPress={() => navigation.navigate('statistics', stats)}
       >
-        <S.ArrowIcon isHighPercent={isHighPercent} />
+        <S.ArrowIcon
+          isHighPercent={stats.percentage >= 50 || isNaN(stats.percentage)}
+        />
         <Highlight
-          title={`${(Math.round(stats.percentage * 100) / 100).toFixed(2)}%`}
+          title={
+            stats.percentage
+              ? `${(Math.round(stats.percentage * 100) / 100).toFixed(2)}%`
+              : '-'
+          }
           subtitle="das refeições dentro da dieta"
         />
       </S.StatsButton>
