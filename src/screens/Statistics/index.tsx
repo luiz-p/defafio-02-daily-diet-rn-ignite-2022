@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { StatsRouteParams } from 'src/@types/navigation'
 
@@ -11,8 +11,6 @@ export function Statistics () {
   const navigation = useNavigation()
   const route = useRoute()
   const stats = route.params as StatsRouteParams
-
-  const [isHighPercent, setIsHighPercent] = useState(true)
 
   return (
     <S.Container>

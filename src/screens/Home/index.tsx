@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react'
 
 import { format } from 'date-fns/esm'
-import { SectionList } from 'react-native'
+import { Alert, SectionList } from 'react-native'
 import { StatsRouteParams } from 'src/@types/navigation'
 
 import logoImg from '@assets/logo.png'
@@ -15,6 +15,7 @@ import { MealItem } from '@components/MealItem'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { getMeals } from '@storage/meal/getMeals'
 import { MealItemTypes, MealStorageDTO } from '@storage/meal/MealStorageDTO'
+import { AppError } from '@utils/AppError'
 
 import * as S from './styles'
 
@@ -72,7 +73,14 @@ export function Home () {
         handleStats(data)
       }
     } catch (error) {
-      //
+      if (error instanceof AppError) {
+        Alert.alert('Novo', error.message)
+      } else {
+        Alert.alert(
+          'Buscar refeições',
+          'Não foi possível buscar nova refeições.'
+        )
+      }
     } finally {
       setIsLoading(false)
     }

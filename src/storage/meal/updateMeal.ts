@@ -18,6 +18,6 @@ export async function updateMeal (mealToUpdate: MealStorageDTO) {
       await AsyncStorage.setItem(MEALS_COLLECTION, JSON.stringify(storedMeals))
     }
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }

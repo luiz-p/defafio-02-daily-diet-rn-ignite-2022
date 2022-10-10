@@ -32,6 +32,6 @@ export async function createMeal (newMeal: MealStorageDTO) {
       await AsyncStorage.setItem(MEALS_COLLECTION, meal)
     }
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }

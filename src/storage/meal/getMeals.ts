@@ -10,6 +10,6 @@ export async function getMeals () {
 
     return meals
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }

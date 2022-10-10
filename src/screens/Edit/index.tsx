@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
+import { Alert } from 'react-native'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
@@ -11,6 +12,7 @@ import RNDateTimePicker, {
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { MealItemTypes } from '@storage/meal/MealStorageDTO'
 import { updateMeal } from '@storage/meal/updateMeal'
+import { AppError } from '@utils/AppError'
 
 import * as S from './styles'
 
@@ -51,21 +53,29 @@ export function Edit () {
 
   async function handleForm () {
     if (isValidForm) {
-      const meal = {
-        date,
-        data: [
-          {
-            id: item.id,
-            title,
-            description,
-            day: date,
-            time,
-            isHealthy
-          }
-        ]
+      try {
+        const meal = {
+          date,
+          data: [
+            {
+              id: item.id,
+              title,
+              description,
+              day: date,
+              time,
+              isHealthy
+            }
+          ]
+        }
+        await updateMeal(meal)
+        navigation.navigate('home')
+      } catch (error) {
+        if (error instanceof AppError) {
+          Alert.alert('Novo', error.message)
+        } else {
+          Alert.alert('Editar Refeição', 'Não foi possível editar a refeição.')
+        }
       }
-      await updateMeal(meal)
-      navigation.navigate('home')
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
+import { Alert } from 'react-native'
 
 import { Button } from '@components/Button'
 import { DefaultHeader } from '@components/DefaultHeader'
@@ -8,6 +9,7 @@ import { Dialog } from '@components/Dialog'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { deleteMeal } from '@storage/meal/deleteMeal'
 import { MealItemTypes } from '@storage/meal/MealStorageDTO'
+import { AppError } from '@utils/AppError'
 
 import * as S from './styles'
 
@@ -22,13 +24,21 @@ export function Meal () {
   const [dialogVisible, setDialogVisible] = useState(false)
 
   async function handleDeleteMeal (item: MealItemTypes) {
-    const mealToDelete = {
-      date: item.day,
-      data: [item]
-    }
+    try {
+      const mealToDelete = {
+        date: item.day,
+        data: [item]
+      }
 
-    await deleteMeal(mealToDelete)
-    navigation.navigate('home')
+      await deleteMeal(mealToDelete)
+      navigation.navigate('home')
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Novo', error.message)
+      } else {
+        Alert.alert('Excluir Refeição', 'Não foi possível excluir a refeição.')
+      }
+    }
   }
 
   return (

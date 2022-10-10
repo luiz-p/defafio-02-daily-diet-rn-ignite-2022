@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { format } from 'date-fns/esm'
+import { Alert } from 'react-native'
 import uuid from 'react-native-uuid'
 
 import { Button } from '@components/Button'
@@ -11,6 +12,7 @@ import RNDateTimePicker, {
   DateTimePickerEvent
 } from '@react-native-community/datetimepicker'
 import { createMeal } from '@storage/meal/createMeal'
+import { AppError } from '@utils/AppError'
 
 import * as S from './styles'
 
@@ -40,23 +42,34 @@ export function NewMeal () {
     setShowTimePicker(false)
   }
 
-  function handleForm () {
+  async function handleForm () {
     if (isValidForm) {
-      const meal = {
-        date,
-        data: [
-          {
-            id: uuid.v4(),
-            title,
-            description,
-            day: date,
-            time,
-            isHealthy
-          }
-        ]
+      try {
+        const meal = {
+          date,
+          data: [
+            {
+              id: uuid.v4(),
+              title,
+              description,
+              day: date,
+              time,
+              isHealthy
+            }
+          ]
+        }
+        createMeal(meal)
+        setModalVisible(true)
+      } catch (error) {
+        if (error instanceof AppError) {
+          Alert.alert('Novo', error.message)
+        } else {
+          Alert.alert(
+            'Nova Refeição',
+            'Não foi possível criar a nova refeição.'
+          )
+        }
       }
-      createMeal(meal)
-      setModalVisible(true)
     }
   }
 
