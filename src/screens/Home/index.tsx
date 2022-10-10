@@ -109,8 +109,12 @@ export function Home () {
         <Highlight
           title={
             stats.percentage
-              ? `${(Math.round(stats.percentage * 100) / 100).toFixed(2)}%`
-              : '-'
+              ? `${(Math.round(stats.percentage * 100) / 100)
+                  .toFixed(2)
+                  .replace(/(\.0+|0+)$/, '')}%`
+              : stats.allMealsCount > 0
+                ? '0%'
+                : '-'
           }
           subtitle="das refeições dentro da dieta"
         />
